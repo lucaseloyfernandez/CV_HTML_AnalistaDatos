@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analista de Datos Freelance</title>
+    <!-- Carga de Tailwind CSS desde CDN para un diseño responsive y moderno -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilos personalizados para la estructura (simulando un layout de dos columnas en desktop) */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;700&display=swap');
+        
+        /* DEFINICIÓN DE LA PALETA DE COLORES SOLICITADA */
+        :root {
+            --color-bg-light: #F4F4F4; /* Fondo Principal (Claro) */
+            --color-sidebar-dark: #0C2B4E; /* Sidebar (Oscuro Principal) */
+            --color-accent-teal: #1D546C; /* Acento Principal (Teal/Azul Verdoso) */
+            --color-medium-blue: #1A3D64; /* Acento Secundario (Azul Marino) */
+            --color-text-dark: #1f2937;
+        }
+
+        body {
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 300;
+            background-color: var(--color-bg-light); 
+            color: var(--color-text-dark);
+        }
+        
+        /* La navegación lateral será fija en desktop y se desplazará con el contenido */
+        #sidebar {
+            background-color: var(--color-sidebar-dark); /* Aplicando color Dark Blue */
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 300px;
+            padding: 2rem;
+            box-shadow: 6px 0 15px rgba(0, 0, 0, 0.2);
+            overflow-y: auto; 
+        }
+        
+        #content {
+            margin-left: 300px; 
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        /* Responsive: Ajustes para móviles */
+        @media (max-width: 1024px) {
+            #sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                padding: 1.5rem;
+            }
+            #content {
+                margin-left: 0;
+                padding: 1.5rem;
+            }
+            .sidebar-nav {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.75rem;
+                padding-top: 1rem;
+            }
+            /* Aplicando acento a los links de navegación */
+            .sidebar-nav a:hover, .sidebar-nav a.active {
+                background-color: var(--color-medium-blue);
+                color: white;
+            }
+        }
+
+        /* Estilo para los botones principales (CTA) */
+        .cta-button {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+        }
+
+        /* Botón Primario (Teal Accent) */
+        .cta-primary {
+            background-color: var(--color-accent-teal); 
+            color: white;
+        }
+        .cta-primary:hover {
+            background-color: var(--color-medium-blue); 
+        }
+        
+        /* Botón Secundario (Outline Teal Accent) */
+        .cta-secondary {
+            background-color: transparent;
+            color: var(--color-accent-teal);
+            border: 2px solid var(--color-accent-teal);
+        }
+        .cta-secondary:hover {
+            background-color: rgba(29, 84, 108, 0.1); /* Teal con 10% de opacidad */
+        }
+
+        /* Clase para aplicar el color de acento principal (Teal Blue) a títulos y textos */
+        .text-accent {
+            color: var(--color-accent-teal);
+        }
+        
+        /* Clase para los tags (Acentos en Proyectos) */
+        .tag-style {
+            /* Usamos el color claro del fondo del CV para el fondo de la etiqueta */
+            background-color: var(--color-bg-light); 
+            /* Usamos el color de acento para el texto del tag */
+            color: var(--color-medium-blue); 
+            font-weight: 600;
+            font-size: 0.75rem; /* text-xs */
+            padding: 0.25rem 0.625rem; /* px-2.5 py-0.5 */
+            border-radius: 9999px; /* rounded-full */
+            border: 1px solid var(--color-medium-blue); /* Borde para definirlos mejor */
+        }
+
+        /* Estilo para las tarjetas de proyecto y habilidad */
+        .project-card, .skill-card {
+            background-color: white; 
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid #e5e7eb;
+        }
+        .skill-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Icono de WhatsApp para el enlace directo */
+        .whatsapp-icon::before {
+            content: '📞'; /* Icono de teléfono/llamada */
+            margin-right: 0.5rem;
+        }
+
+    </style>
+</head>
+<body class="lg:flex">
+
+    <!-- Sidebar / Header Fijo -->
+    <aside id="sidebar" class="z-20">
+        <header class="text-center mb-8">
+            <!-- Avatar con Foto de Perfil -->
+            <div class="w-36 h-36 mx-auto rounded-full mb-4 overflow-hidden shadow-2xl border-4 border-gray-700">
+                <img src="https://github.com/lucaseloyfernandez.png" 
+                     alt="Foto de Perfil de Lucas Eloy Fernandez" 
+                     class="w-full h-full object-cover"
+                     onerror="this.onerror=null; this.src='https://placehold.co/144x144/334155/ffffff/png?text=LF';">
+            </div>
+            <h1 class="text-3xl font-bold mb-1">Lucas Eloy Fernandez</h1>
+            <!-- Usando un color más claro para el subtítulo en el fondo oscuro -->
+            <p class="text-gray-300 text-lg">Analista de Datos | Data Analyst</p>
+            <p class="text-gray-400 text-sm italic mt-2">"Convirtiendo datos brutos en estrategias claras de negocio."</p>
+        </header>
+
+        <!-- Navegación -->
+        <nav id="nav" class="mt-8 sidebar-nav">
+            <a href="#about" class="block py-2 px-4 rounded-lg hover:bg-gray-700 transition duration-150 active">Sobre Mí</a>
+            <a href="#skills" class="block py-2 px-4 rounded-lg hover:bg-gray-700 transition duration-150">Habilidades</a>
+            <a href="#projects" class="block py-2 px-4 rounded-lg hover:bg-gray-700 transition duration-150">Experiencia</a>
+            <a href="#contact" class="block py-2 px-4 rounded-lg hover:bg-gray-700 transition duration-150">Contacto</a>
+        </nav>
+
+        <!-- Iconos de Redes (Footer del Sidebar) -->
+        <footer class="mt-12 pt-4 border-t border-gray-700 text-center">
+            <p class="text-sm text-gray-500">3 años de experiencia.</p>
+        </footer>
+    </aside>
+
+    <!-- Contenido Principal -->
+    <main id="content" class="w-full lg:w-[calc(100%-300px)]">
+
+        <!-- 1. Sección Sobre Mí -->
+        <section id="about" class="mb-16 pt-4">
+            <h2 class="text-4xl font-extrabold mb-6 text-gray-800 border-b pb-2">Analista de datos freelance en CodeCatsDevelopers.</h2>
+            <div class="space-y-4 text-gray-700 text-lg">
+                <p>Soy un Analista de Datos enfocado en el valor de negocio. Mi experiencia se centra en transformar grandes volúmenes de datos transaccionales y económicos en **KPIs accionables** que guían la estrategia y optimizan la eficiencia operativa. Mi fortaleza radica en mi capacidad para limpiar, modelar y visualizar datos complejos de manera que cualquier *stakeholder* pueda entender el impacto financiero.</p>
+                <p>Trabajo en aplicar mis habilidades en análisis de estacionalidad, segmentación de clientes y automatización de reportes, con un compromiso firme en la precisión y la eficiencia. Estoy listo para el desafío de llevar tus datos al siguiente nivel.</p>
+            </div>
+            <div class="mt-8 flex space-x-4">
+                <a href="#projects" class="cta-button cta-primary">Ver Proyectos</a>
+                <!-- Es importante reemplazar esta URL por la URL pública de tu CV en PDF -->
+                <a href="URL_DE_TU_CV.pdf" class="cta-button cta-secondary" download>Descargar CV (PDF)</a> 
+            </div>
+        </section>
+
+        <!-- 2. Sección Habilidades Técnicas -->
+        <section id="skills" class="mb-16 pt-4">
+            <h2 class="text-4xl font-extrabold mb-8 text-gray-800 border-b pb-2"> Habilidades Técnicas</h2>
+            <!-- Grid para habilidades -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Habilidad 1: Python -->
+                <div class="skill-card">
+                    <h3 class="text-xl font-bold mb-1 text-accent">Python</h3>
+                    <p class="text-sm text-gray-600">(pandas, matplotlib, ggplot2, beautifulsoup2, re, os)</p>
+                </div>
+
+                <!-- Habilidad 2: SQL -->
+                <div class="skill-card">
+                    <h3 class="text-xl font-bold mb-1 text-accent">SQL</h3>
+                    <p class="text-sm text-gray-600">(DDL, DML, Filtering data, Join´s & SET´s, String Funct., Aggregate Funct., Ranking Funct., Value Funct., Window funct., SubQuerys, CTE´s, View, Temp. Tables, CTA´s)</p>
+                </div>
+
+                <!-- Habilidad 3: Power BI -->
+                <div class="skill-card">
+                    <h3 class="text-xl font-bold mb-1 text-accent">Power BI</h3>
+                    <p class="text-sm text-gray-600">(DAX, API, Power Query, Visualización)</p>
+                </div>
+
+                <!-- Habilidad 4: Excel/Sheets -->
+                <div class="skill-card">
+                    <h3 class="text-xl font-bold mb-1 text-accent">Excel / Google Sheets</h3>
+                    <p class="text-sm text-gray-600">(Tablas dinámicas XLOOKUP, VBA, gráficos y visualizaciones)</p>
+                </div>
+
+                <!-- Habilidad 5: Versionamiento -->
+                <div class="skill-card">
+                    <h3 class="text-xl font-bold mb-1 text-accent">Git & GitHub</h3>
+                    <p class="text-sm text-gray-600">(Control de versiones)</p>
+                </div>
+
+                <!-- Habilidad 6: Cloud (Opcional) -->
+                <div class="skill-card">
+                    <h3 class="text-xl font-bold mb-1 text-accent">Nubes</h3>
+                    <p class="text-sm text-gray-600">(Básico AWS/Azure)</p>
+                </div>
+                
+            </div>
+        </section>
+
+        <!-- 3. Sección Proyectos Clave -->
+        <section id="projects" class="mb-16 pt-4">
+            <h2 class="text-4xl font-extrabold mb-8 text-gray-800 border-b pb-2">Experiencia</h2>
+            
+            <!-- PROYECTO 1: WALMART (Aplicando clase .project-card) -->
+            <div class="project-card mb-8">
+                <h3 class="text-2xl font-bold text-gray-800 mb-2">Análisis de Ventas y Estacionalidad de Walmart</h3>
+                <p class="text-sm text-gray-500 mb-4">Ingeniería de Características, Análisis Exploratorio (EDA), Segmentación.</p>
+                <p class="text-gray-700 mb-4">
+                    Análisis completo de datos transaccionales y promocionales para identificar la eficiencia de las tiendas y el impacto de la estacionalidad. 
+                    **Hallazgo Clave:** Las tiendas Tipo C son las más eficientes en ventas por metro cuadrado, y el Verano es la segunda estación más rentable, superando el Otoño y la Primavera.
+                </p>
+                <div class="flex flex-wrap gap-3">
+                    <span class="tag-style">Python (Pandas)</span>
+                    <span class="tag-style">Feature Engineering</span>
+                    <span class="tag-style">Power BI</span>
+                </div>
+                <div class="mt-4 flex space-x-3">
+                    <a href="https://github.com/lucaseloyfernandez/-Analisis-de-Ventas-de-Walmart" target="_blank" class="text-sm font-medium text-accent hover:text-gray-700 flex items-center">
+                        <span class="text-lg mr-1"></span> Ver Código en GitHub
+                    </a>
+                    <a href="URL_DASHBOARD_WALMART" target="_blank" class="text-sm font-medium text-accent hover:text-gray-700 flex items-center">
+                        <span class="text-lg mr-1"></span> Ver Dashboard (Power BI)
+                    </a>
+                </div>
+            </div>
+
+            <!-- PROYECTO 2: Data Warehouse SQL (Aplicando clase .project-card) -->
+            <div class="project-card mb-8">
+                <h3 class="text-2xl font-bold text-gray-800 mb-2">Data WareHouse SQL</h3>
+                <p class="text-sm text-gray-500 mb-4">Creación de un Data Warehouse, exploración de datos y reporte en POWER BI.</p>
+                <p class="text-gray-700 mb-4">
+                    Este proyecto demuestra una solución integral de almacenamiento de datos y análisis. Destaca las mejores prácticas en ingeniería de datos, desde la construcción del data warehouse hasta la generación de *insights* accionables.
+                </p>
+                <div class="flex flex-wrap gap-3">
+                    <span class="tag-style">SQL</span>
+                    <span class="tag-style">ETL (Extracción, Transformación, Carga)</span>
+                    <span class="tag-style">Modelado (Fact/Dimension)</span>
+                </div>
+                <div class="mt-4 flex space-x-3">
+                    <a href="https://github.com/lucaseloyfernandez/Data_WareHouse_SQL" target="_blank" class="text-sm font-medium text-accent hover:text-gray-700 flex items-center">
+                        <span class="text-lg mr-1"></span> Ver Código en GitHub
+                    </a>
+                    <a href="https://github.com/lucaseloyfernandez/Data_WareHouse_SQL/blob/main/DataWarehouseVisuals.pbix" target="_blank" class="text-sm font-medium text-accent hover:text-gray-700 flex items-center">
+                        <span class="text-lg mr-1"></span> Ver Reporte de POWER BI
+                    </a>
+                </div>
+            </div>
+            
+            <!-- PROYECTO 3: Analisis sobre los trabajadores de datos (Aplicando clase .project-card) -->
+            <div class="project-card mb-8">
+                <h3 class="text-2xl font-bold text-gray-800 mb-2">Análisis del Mercado Laboral de Data Scientists</h3>
+                <p class="text-sm text-gray-500 mb-4">Proyecto en EXCEL/POWER BI. Preparación, análisis y dashboard interactivo sobre el mercado laboral.</p>
+                <p class="text-gray-700 mb-4">Para comprender el mercado laboral de la ciencia de datos, planteé las siguientes preguntas: ¿Contar con más habilidades te da un mejor salario?, ¿Cuál es el salario para los trabajos dentro de la ciencia de datos en diferentes regiones?, ¿Cuáles son las principales habilidades de los profesionales de la ciencia de datos?.</p>
+                <div class="flex flex-wrap gap-3">
+                    <span class="tag-style">Excel/POWER BI</span>
+                    <span class="tag-style">Power Query (ETL)</span>
+                    <span class="tag-style">PivotTables & DAX</span>
+                </div>
+                <div class="mt-4 flex space-x-3">
+                    <a href="https://github.com/lucaseloyfernandez/Data_jobs_Analysis" target="_blank" class="text-sm font-medium text-accent hover:text-gray-700 flex items-center">
+                        <span class="text-lg mr-1"></span> Ver Código en GitHub
+                    </a>
+                    <a href="https://github.com/lucaseloyfernandez/Data_jobs_Analysis/blob/main/README.md" target="_blank" class="text-sm font-medium text-accent hover:text-gray-700 flex items-center">
+                        <span class="text-lg mr-1"></span> Ver Reporte de POWER BI
+                    </a>
+                </div>
+            </div>
+            
+        </section>
+
+        <!-- 4. Sección Contacto -->
+        <section id="contact" class="mb-16 pt-4">
+            <h2 class="text-4xl font-extrabold mb-6 text-gray-800 border-b pb-2"> Contacto y Redes</h2>
+            <p class="text-gray-700 mb-6">
+                Siempre estoy abierto a discutir nuevos proyectos, oportunidades de colaboración o simplemente hablar de datos. No dudes en contactarme a través de los siguientes canales:
+            </p>
+
+            <div class="space-y-4">
+                <!-- Enlace de WhatsApp/Teléfono (Nuevo) -->
+                <div class="flex items-center text-gray-700 text-lg">
+                    <!-- REEMPLAZA AMBOS VALORES CON TU NÚMERO DE TELÉFONO -->
+                    <span class="text-2xl mr-3 text-accent"></span>WhatsApp:
+                    <a href="https://wa.me/+5491158074067" target="_blank" class="whatsapp-icon text-accent font-medium hover:underline flex items-center">
+                        1158074067
+                    </a>
+                </div>
+
+                <!-- Enlace de Email (Existente) -->
+                <div class="flex items-center text-gray-700 text-lg">
+                    <span class="text-2xl mr-3 text-accent"></span>
+                    Email: <a href="mailto:lucaseloyfernandez@gmail.com" class="text-accent font-medium hover:underline">lucaseloyfernandez@gmail.com</a>
+                </div>
+                
+                <!-- Enlace de LinkedIn (Existente) -->
+                <div class="flex items-center text-gray-700 text-lg">
+                    <span class="text-2xl mr-3 text-accent"></span>
+                    LinkedIn: <a href="https://www.linkedin.com/in/lucas-fernandez-data/" target="_blank" class="text-accent font-medium hover:underline">lucas-fernandez-data/</a>
+                </div>
+                
+                <!-- Enlace de GitHub (Existente) -->
+                <div class="flex items-center text-gray-700 text-lg">
+                    <span class="text-2xl mr-3 text-accent"></span>
+                    GitHub: <a href="https://github.com/lucaseloyfernandez" target="_blank" class="text-accent font-medium hover:underline">/lucaseloyfernandez</a>
+                </div>
+            </div>
+            
+        </section>
+        
+        
+    </main>
+    
+    <!-- Scripts (Manejo de Scroll para navegación) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('#nav a');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = e.currentTarget.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        // Desplazamiento suave (scroll) al elemento
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+
+                        // Resaltar el enlace activo (opcional)
+                        navLinks.forEach(nav => nav.classList.remove('active'));
+                        e.currentTarget.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
